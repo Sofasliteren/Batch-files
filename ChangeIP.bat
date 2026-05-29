@@ -7,8 +7,8 @@ exit /b
 )
 
 IF "%1"=="0" (
-netsh interface ipv4 set address name="Ethernet" static 192.168.30.219 255.255.255.0
-echo Resetting IP on Ethernet to 192.168.30.219
+netsh interface ipv4 set address name="Ethernet" static 192.168.30.219 255.255.255.0 192.168.30.1
+echo Resetting IP on Ethernet to 192.168.30.219 gateway 192.168.30.1
 ) ELSE (
 
 REM -------------------------
@@ -29,8 +29,13 @@ if "!o4!"=="" (
     exit /b 1
 )
 
-netsh interface ipv4 set address name="Ethernet" static %1 255.255.255.0
-echo Finished: IP on Ethernet set to %1
+REM Set the gateway and apply the IP and gateway with a fixed mesh
+
+set gateway=%o1%.%o2%.%o3%.1
+netsh interface ipv4 set address name="Ethernet" static %1 255.255.255.0 %gateway%
+echo Finished: IP on Ethernet set to %1 with gateway %gateway%
+
+
 )
 
 pause
