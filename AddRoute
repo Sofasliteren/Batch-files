@@ -1,0 +1,9 @@
+@echo off
+echo This bat-file will change the local IP and add routes to 10.10.21.* and 10.10.11.* via 10.10.91.1. Press Ctrl+C now to quit.
+pause
+@echo on
+
+netsh interface ipv4 set address name="Ethernet" static 10.10.91.10 255.255.255.0 10.10.91.1
+
+route add -p 10.10.21.0 mask 255.255.255.0 10.10.91.1 metric 1 IF 17
+route add -p 10.10.11.0 mask 255.255.255.0 10.10.91.1 metric 1 IF 17
