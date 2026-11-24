@@ -5,5 +5,12 @@ pause
 
 netsh interface ipv4 set address name="Ethernet" static 10.10.91.10 255.255.255.0 10.10.91.1
 
-route add -p 10.10.21.0 mask 255.255.255.0 10.10.91.1 metric 1 IF 17
-route add -p 10.10.11.0 mask 255.255.255.0 10.10.91.1 metric 1 IF 17
+@echo ---------------For cmd -------------------------
+@echo route add -p 10.10.21.0 mask 255.255.255.0 10.10.91.1 metric 1 IF 17
+@echo route add -p 10.10.11.0 mask 255.255.255.0 10.10.91.1 metric 1 IF 17
+
+@echo ---------------For PowerShell -------------------------
+New-NetRoute -DestinationPrefix "10.10.21.0/24" -NextHop "10.10.91.1" -InterfaceIndex 20
+New-NetRoute -DestinationPrefix "10.10.11.0/24" -NextHop "10.10.91.1" -InterfaceIndex 20
+
+Get-NetRoute -DestinationPrefix "10.10.11.0/24","10.10.21.0/24"
